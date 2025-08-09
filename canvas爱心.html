@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>爱心</title>
+  </head>
+  <body>
+    <script>
+      const canvas = document.createElement('canvas')
+      const dpr = window.devicePixelRatio || 1
+      canvas.width = 600 * dpr
+      canvas.height = 600 * dpr
+      canvas.style.width = '600px'
+      canvas.style.height = '600px'
+      const ctx = canvas.getContext('2d')
+      ctx.scale(dpr, dpr)
+      document.body.append(canvas)
+
+      ctx.beginPath()
+      ctx.moveTo(300, 450)
+      ctx.bezierCurveTo(100, 350, 100, 150, 300, 210)
+      ctx.bezierCurveTo(500, 150, 500, 350, 300, 450)
+      ctx.closePath()
+      const gradient = ctx.createRadialGradient(300, 210, 0, 300, 210, 100)
+      gradient.addColorStop(0, '#fff')
+      gradient.addColorStop(1, '#ff2c0f')
+
+      ctx.fillStyle = gradient
+      ctx.fill()
+    </script>
+  </body>
+</html>

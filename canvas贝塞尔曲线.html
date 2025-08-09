@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>渐变折线</title>
+  </head>
+  <body>
+    <script>
+      const canvas = document.createElement('canvas')
+      canvas.width = 500
+      canvas.height = 500
+      canvas.style.border = '1px solid #000'
+      document.body.append(canvas)
+
+      const cxt = canvas.getContext('2d')
+      cxt.beginPath()
+      cxt.moveTo(100, 100)
+      // 三阶
+      // cxt.bezierCurveTo(200, 200, 110, 110, 300, 100)
+      // 二阶
+      cxt.quadraticCurveTo(200, 200, 50, 300)
+      cxt.stroke()
+    </script>
+  </body>
+</html>
