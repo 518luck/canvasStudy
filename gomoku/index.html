@@ -37,24 +37,47 @@
         ctx.moveTo(i * gridSize - startOffset, 20)
         ctx.lineTo(i * gridSize - startOffset, 20 + 14 * gridSize)
       }
-
       ctx.stroke()
 
+      const circles = new Array(15)
+        .fill(null)
+        .map(() => new Array(15).fill(null))
+
+      let isBlaack = true
       canvas.addEventListener('click', (e) => {
         let { offsetX, offsetY } = e
 
         let x =
           Math.round((offsetX - startOffset) / gridSize) * gridSize +
           startOffset
+
         let y =
           Math.round((offsetY - startOffset) / gridSize) * gridSize +
           startOffset
 
+        const xIndex = Math.round((x - startOffset) / gridSize)
+        const yIndex = Math.round((y - startOffset) / gridSize)
+        if (circles[xIndex][yIndex]) return
+        circles[xIndex][yIndex] = {
+          x,
+          y,
+          isBlaack,
+        }
+        console.log('🚀 ~ circles:', circles)
+
         ctx.beginPath()
         ctx.arc(x, y, 15, 0, Math.PI * 2)
-        ctx.fillStyle = 'black'
+        let tx = isBlaack ? x - 2 : x + 2
+        let ty = isBlaack ? y - 2 : y + 2
+        let gradient = ctx.createRadialGradient(tx, ty, 0, tx, ty, 15)
+
+        gradient.addColorStop(0, isBlaack ? '#ccc' : `#666`)
+        gradient.addColorStop(1, isBlaack ? '#000' : '#fff')
+        ctx.fillStyle = gradient
         ctx.fill()
         ctx.closePath()
+
+        isBlaack = !isBlaack
       })
     </script>
   </body>
