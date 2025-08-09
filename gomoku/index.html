@@ -15,33 +15,46 @@
   <body>
     <script>
       let canvas = document.createElement('canvas')
-      canvas.width = 600
-      canvas.height = 600
+      const dpr = window.devicePixelRatio || 1
+      canvas.style.width = '600px'
+      canvas.style.height = '600px'
+      canvas.width = 600 * dpr
+      canvas.height = 600 * dpr
       document.body.append(canvas)
       let ctx = canvas.getContext('2d')
+      ctx.scale(dpr, dpr)
 
       // 五子棋的棋盘通常有196个格子。棋盘由14行和14列组成.
-      const height = -20
-      for (let i = 1; i <= 15; i++) {
-        ctx.moveTo(20, height + i * 40)
-        ctx.lineTo(20 + 14 * 40, height + i * 40)
+      const gridSize = 40 // 网格大小
+      const startOffset = 20 // 起始偏移量
+      const lineCouint = 15 // 线条数量
+      for (let i = 1; i <= lineCouint; i++) {
+        ctx.moveTo(20, i * gridSize - startOffset)
+        ctx.lineTo(20 + 14 * gridSize, i * gridSize - startOffset)
       }
 
-      const width = -20
-      for (let i = 1; i <= 15; i++) {
-        ctx.moveTo(width + i * 40, 20)
-        ctx.lineTo(width + i * 40, 20 + 14 * 40)
+      for (let i = 1; i <= lineCouint; i++) {
+        ctx.moveTo(i * gridSize - startOffset, 20)
+        ctx.lineTo(i * gridSize - startOffset, 20 + 14 * gridSize)
       }
 
       ctx.stroke()
 
       canvas.addEventListener('click', (e) => {
-        let { offsetX: x, offsetY: y } = e
+        let { offsetX, offsetY } = e
+
+        let x =
+          Math.round((offsetX - startOffset) / gridSize) * gridSize +
+          startOffset
+        let y =
+          Math.round((offsetY - startOffset) / gridSize) * gridSize +
+          startOffset
 
         ctx.beginPath()
-        ctx.arc(x, y, 10, 0, Math.PI * 2)
+        ctx.arc(x, y, 15, 0, Math.PI * 2)
         ctx.fillStyle = 'black'
         ctx.fill()
+        ctx.closePath()
       })
     </script>
   </body>
