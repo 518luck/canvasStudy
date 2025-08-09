@@ -8,13 +8,19 @@
   <body>
     <script>
       const canvas = document.createElement('canvas')
-      canvas.width = 500
-      canvas.height = 500
+      const dpr = window.devicePixelRatio || 1
+      console.log('🚀 ~ dpr:', dpr)
+      canvas.width = 500 * dpr
+      canvas.height = 500 * dpr
+      canvas.style.width = '500px'
+      canvas.style.height = '500px'
+      // 关键修复：缩放坐标系
       canvas.style.border = '1px solid #000'
 
       document.body.append(canvas)
 
       const cxt = canvas.getContext('2d')
+      cxt.scale(dpr, dpr)
       cxt.arc(250, 250, 100, 0, (360 * Math.PI) / 180)
       cxt.fillStyle = 'yellow'
       cxt.fill()
@@ -28,8 +34,9 @@
       cxt.arc(290, 220, 20, 0, (360 * Math.PI) / 180)
       cxt.stroke()
       cxt.beginPath()
-      cxt.arc(250, 260, 15, 0, (360 * Math.PI) / 180)
+      cxt.ellipse(250, 260, 15, 10, Math.PI / 2, 0, (360 * Math.PI) / 180)
       cxt.stroke()
+      cxt.closePath()
       cxt.beginPath()
       cxt.arc(250, 250, 75, 0, (180 * Math.PI) / 180)
       cxt.stroke()
