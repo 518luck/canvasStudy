@@ -72,6 +72,11 @@
 
         gradient.addColorStop(0, isBlack ? '#ccc' : `#666`)
         gradient.addColorStop(1, isBlack ? '#000' : '#fff')
+        ctx.shadowColor = '#000'
+        ctx.shadowBlur = 20
+        ctx.shadowOffsetX = 8
+        ctx.shadowOffsetY = 8
+
         ctx.fillStyle = gradient
         ctx.fill()
         ctx.closePath()
