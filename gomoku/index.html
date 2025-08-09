@@ -43,7 +43,7 @@
         .fill(null)
         .map(() => new Array(15).fill(null))
 
-      let isBlaack = true
+      let isBlack = true
       canvas.addEventListener('click', (e) => {
         let { offsetX, offsetY } = e
 
@@ -61,24 +61,73 @@
         circles[xIndex][yIndex] = {
           x,
           y,
-          isBlaack,
+          color: isBlack ? 'black' : 'white',
         }
-        console.log('🚀 ~ circles:', circles)
 
         ctx.beginPath()
         ctx.arc(x, y, 15, 0, Math.PI * 2)
-        let tx = isBlaack ? x - 2 : x + 2
-        let ty = isBlaack ? y - 2 : y + 2
+        let tx = isBlack ? x - 2 : x + 2
+        let ty = isBlack ? y - 2 : y + 2
         let gradient = ctx.createRadialGradient(tx, ty, 0, tx, ty, 15)
 
-        gradient.addColorStop(0, isBlaack ? '#ccc' : `#666`)
-        gradient.addColorStop(1, isBlaack ? '#000' : '#fff')
+        gradient.addColorStop(0, isBlack ? '#ccc' : `#666`)
+        gradient.addColorStop(1, isBlack ? '#000' : '#fff')
         ctx.fillStyle = gradient
         ctx.fill()
         ctx.closePath()
+        if (checkWin(xIndex, yIndex, isBlack ? 'black' : 'white')) {
+          alert(isBlack ? '黑棋赢了' : '白棋赢了')
+          return
+        }
 
-        isBlaack = !isBlaack
+        isBlack = !isBlack
       })
+
+      function checkWin(xIndex, yIndex, color) {
+        const directions = [
+          [1, 0],
+          [0, 1],
+          [1, 1],
+          [1, -1],
+        ]
+        function isValidAndSameColor(nx, ny) {
+          return (
+            nx >= 0 &&
+            nx < 15 &&
+            ny >= 0 &&
+            ny < 15 &&
+            circles[nx][ny] &&
+            circles[nx][ny].color === color
+          )
+        }
+        for (const [dx, dy] of directions) {
+          let count = 1
+
+          for (let i = 1; i < 5; i++) {
+            const nx = xIndex + dx * i
+            const ny = yIndex + dy * i
+            if (isValidAndSameColor(nx, ny)) {
+              count++
+            } else {
+              break
+            }
+          }
+          for (let i = 1; i < 5; i++) {
+            const nx = xIndex - dx * i
+            const ny = yIndex - dy * i
+            if (isValidAndSameColor(nx, ny)) {
+              count++
+            } else {
+              break
+            }
+          }
+
+          if (count >= 5) {
+            return true
+          }
+        }
+        return false
+      }
     </script>
   </body>
 </html>
