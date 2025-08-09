@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>渐变折线</title>
+  </head>
+  <body>
+    <script>
+      const canvas = document.createElement('canvas')
+      canvas.width = 500
+      canvas.height = 500
+      document.body.append(canvas)
+
+      const cxt = canvas.getContext('2d')
+
+      const linearGradient = cxt.createLinearGradient(100, 100, 400, 400)
+      linearGradient.addColorStop(0, 'yellow')
+      linearGradient.addColorStop(0.25, 'orange')
+      linearGradient.addColorStop(0.5, 'pink')
+      linearGradient.addColorStop(1, 'purple')
+      cxt.strokeStyle = linearGradient
+
+      cxt.lineCap = 'square'
+      cxt.lineJoin = 'bevel'
+
+      cxt.moveTo(100, 50)
+      cxt.lineTo(400, 50)
+      cxt.lineTo(100, 400)
+      cxt.lineTo(400, 400)
+      cxt.lineWidth = 10
+      cxt.stroke()
+    </script>
+  </body>
+</html>

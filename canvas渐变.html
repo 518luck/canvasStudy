@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <body>
+    <script>
+      const canvas = document.createElement('canvas')
+      document.body.append(canvas)
+      canvas.width = 500
+      canvas.height = 500
+      canvas.style.border = '1px solid #000'
+
+      const cxt = canvas.getContext('2d')
+
+      let image = new Image()
+      image.src = './images/canvas_create_pattern.png'
+      image.onload = function () {
+        // 创建重复元图像对象
+        let p = cxt.createPattern(image, 'repeat')
+
+        cxt.fillStyle = p
+        cxt.fillRect(0, 0, 500, 500)
+      }
+    </script>
+  </body>
+</html>
