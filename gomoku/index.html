@@ -75,6 +75,7 @@
         ctx.fillStyle = gradient
         ctx.fill()
         ctx.closePath()
+
         if (checkWin(xIndex, yIndex, isBlack ? 'black' : 'white')) {
           alert(isBlack ? '黑棋赢了' : '白棋赢了')
           return
