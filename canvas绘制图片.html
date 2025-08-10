@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const canvas = document.createElement('canvas')
+      canvas.width = 600
+      canvas.height = 600
+      document.body.append(canvas)
+      const ctx = canvas.getContext('2d')
+
+      let img = new Image()
+      img.src =
+        'https://pic3.zhimg.com/v2-b1136c6d946d263709a7461de8b0f9a2_r.jpg'
+      console.log(img.width, img.height)
+
+      img.onload = function () {
+        ctx.drawImage(img, 100, 100, 100, 205)
+      }
+    </script>
+  </body>
+</html>
