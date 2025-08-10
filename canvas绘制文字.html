@@ -1,19 +1,37 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
+<html>
   <body>
     <script>
       const canvas = document.createElement('canvas')
-      canvas.width = 600
-      canvas.height = 600
+      const dpr = window.devicePixelRatio || 1
+      canvas.style.width = 600 + 'px'
+      canvas.style.height = 600 + 'px'
+      canvas.width = 600 * dpr
+      canvas.height = 600 * dpr
       document.body.append(canvas)
       const ctx = canvas.getContext('2d')
+      ctx.scale(dpr, dpr)
 
-      ctx.fillText('hello world', 100, 100)
+      const linearGradient = ctx.createLinearGradient(0, 0, 600, 0)
+      linearGradient.addColorStop(0, 'red')
+      linearGradient.addColorStop(1, 'blue')
+      ctx.fillStyle = linearGradient
+
+      const radialGradient = ctx.createRadialGradient(
+        300,
+        300,
+        100,
+        300,
+        300,
+        200
+      )
+      radialGradient.addColorStop(0, 'red')
+      radialGradient.addColorStop(1, 'blue')
+      ctx.strokeStyle = radialGradient
+
+      ctx.font = '30px serif'
+      ctx.fillText('hello Canvas', 100, 100, 1400)
+      ctx.strokeText('hello Canvas', 100, 300, 1400)
     </script>
   </body>
 </html>
