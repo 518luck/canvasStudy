@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+    <script>
+      const canvas = document.getElementById('canvas')
+      const ctx = canvas.getContext('2d')
+
+      const centerX = canvas.width / 2
+      const centerY = canvas.height / 2
+      const radius = 100
+
+      // 1. 画太阳主体（圆形） - 径向渐变表现立体感
+      const sunGradient = ctx.createRadialGradient(
+        centerX,
+        centerY,
+        radius * 0.1,
+        centerX,
+        centerY,
+        radius
+      )
+      sunGradient.addColorStop(0, '#fff176') // 中心亮黄色
+      sunGradient.addColorStop(1, '#f57f17') // 边缘深橙色
+
+      ctx.fillStyle = sunGradient
+      ctx.beginPath()
+      ctx.arc(centerX, centerY, radius, 0, Math.PI * 2)
+      ctx.fill()
+
+      // 2. 画太阳光芒
+
+      // 创建渐变，让光芒由亮到透明
+      const rayGradient = ctx.createLinearGradient(startX, startY, endX, endY)
+      rayGradient.addColorStop(0, 'rgba(255, 241, 118, 0.8)') // 明亮黄色，稍透明
+      rayGradient.addColorStop(1, 'rgba(255, 241, 118, 0)') // 完全透明
+
+      ctx.strokeStyle = rayGradient
+      ctx.lineWidth = 8
+      ctx.lineCap = 'round'
+
+      ctx.beginPath()
+      ctx.moveTo(startX, startY)
+      ctx.lineTo(endX, endY)
+      ctx.stroke()
+    </script>
+  </body>
+</html>

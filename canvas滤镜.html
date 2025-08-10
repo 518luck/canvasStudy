@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      const canvas = document.createElement('canvas')
+      const dpr = window.devicePixelRatio || 1
+      canvas.width = 600 * dpr
+      canvas.height = 600 * dpr
+      canvas.style.width = '600px'
+      canvas.style.height = '600px'
+      canvas.style.border = '1px solid red'
+
+      document.body.append(canvas)
+      const ctx = canvas.getContext('2d')
+      ctx.scale(dpr, dpr)
+
+      let img = new Image()
+
+      /*    ctx.translate(300, 300)
+
+            ctx.rotate((Math.PI / 180) * 90)
+            ctx.scale(0.5, 0.5) */
+      ctx.requestAnimationFrame(() => {})
+
+      ctx.transform(0.5, 0, 0, 0.5, 100, 0)
+
+      img.src =
+        'https://raw.githubusercontent.com/518luck/image-hosting-service/main/images/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%BD%B3%E4%BA%BA-%E5%8D%A7%E5%AE%A4-%E7%BE%8E%E5%A5%B3.png'
+      img.onload = () => {
+        ctx.drawImage(img, 10, 10, 400, 300)
+      }
+      img.onerror = () => {
+        console.error('图片加载失败')
+      }
+    </script>
+  </body>
+</html>

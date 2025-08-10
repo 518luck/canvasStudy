@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      const canvas = document.createElement('canvas')
+      const dpr = window.devicePixelRatio || 1
+      canvas.width = 600 * dpr
+      canvas.height = 600 * dpr
+      canvas.style.width = '600px'
+      canvas.style.height = '600px'
+      canvas.style.border = '1px solid red'
+      const ctx = canvas.getContext('2d')
+      ctx.scale(dpr, dpr)
+      document.body.append(canvas)
+
+      let x = 0
+      function loop() {
+        x += 1
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.fillStyle = '#' + Math.random().toString(16).substring(2, 8)
+        ctx.fillRect(x, 100, 100, 100)
+        if (x > 600) {
+          x = 0
+        }
+
+        requestAnimationFrame(loop)
+      }
+      requestAnimationFrame(loop)
+    </script>
+  </body>
+</html>
